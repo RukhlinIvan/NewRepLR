@@ -1,0 +1,59 @@
+import time
+
+def bubble_sort(data):
+    st_time = time.perf_counter()
+    for i in range(len(data) - 1):
+        for j in range(len(data) - 1 - i):
+            if data[j] > data[j+1]:
+                data[j], data[j+1] = data[j + 1], data[j]
+    t = time.perf_counter() - st_time
+    print("Время выполнения поиска: ", t)
+
+def partition(data, begin, end):
+    part = begin
+    for i in range(begin+1, end+1):
+        if data[i] <= data[begin]:
+            part += 1
+            data[i], data[part] = data[part], data[i]
+    data[part], data[begin] = data[begin], data[part]
+    return part
+def quick_sort(data, begin=0, end=None):
+    st_time = time.perf_counter()
+    if end is None:
+        end = len(data) - 1
+    def quick(data, begin, end):
+        if begin >= end:
+            return
+        part = partition(data, begin, end)
+        quick(data, begin, part-1)
+        quick(data, part+1, end)
+    print("Время выполнения поиска: ", time.perf_counter() - st_time)
+    return quick(data, begin, end)
+
+def sel_sort(data):
+    n = len(data)
+    st_time= time.perf_counter()
+    for i in range(n - 1):
+        i_min = i
+        for j in range(i+1, n):
+            if data[i_min] > data[j]:
+                data[j], data[i_min] = data[i_min], data[j]
+    t = time.perf_counter() - st_time
+    print("Время выполнения поиска: ", t)
+
+def userMenu():
+    while True:
+        ask = input("\nВыберите метод сортировки\n1.Пузырьком\n2.Выбором\n3.Быстрая сортировка\n")
+        rangeOfSort =int( input("\nВведите объем выборки\n"))
+
+        file = open("sortirovka.txt", "r").readlines()
+        a = [int(line) for line in file][:rangeOfSort]
+
+        if ask == "1":
+            bubble_sort(a)
+        if ask == "2":
+            sel_sort(a)
+        if ask == "3":
+            quick_sort(a)
+userMenu()
+
