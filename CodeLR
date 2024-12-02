@@ -1,5 +1,6 @@
 import time
 #работа
+#делается
 def bubble_sort(data):
     st_time = time.perf_counter()
     for i in range(len(data) - 1):
